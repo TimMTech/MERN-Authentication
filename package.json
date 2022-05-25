@@ -1,0 +1,19 @@
+{
+  "name": "mern-authentication",
+  "version": "1.0.0",
+  "description": "Deployment JSON ",
+  "main": "backend/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimMTech/MERN-Authentication.git"
+  },
+  "author": "Tim Mukhamedov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TimMTech/MERN-Authentication/issues"
+  },
+  "homepage": "https://github.com/TimMTech/MERN-Authentication#readme"
+}
