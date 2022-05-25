@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import moment from "moment";
 
-const MessageBoard = ({ messages, isAdmin }) => {
+const MessageBoard = ({ messages, isMember }) => {
   const dateFormat = (date) => {
     return moment(date).startOf("hour").fromNow();
   };
@@ -19,7 +19,7 @@ const MessageBoard = ({ messages, isAdmin }) => {
               </MessageDiv>
               <AuthorDiv>
                 <Date>{dateFormat(date)}</Date>
-                {isAdmin ? (
+                {isMember ? (
                   <Username>{username}</Username>
                 ) : (
                   <Username>anonymous</Username>
@@ -37,7 +37,7 @@ export default MessageBoard;
 const MessageBoardWrapper = styled.div`
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
   gap: 2rem;

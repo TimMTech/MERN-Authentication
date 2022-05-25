@@ -7,7 +7,9 @@ const loginUser = (loginValues, callback) => {
       if (response.data.status === "ok") {
         window.location.href = "/dashboard";
         callback(localStorage.setItem("user", JSON.stringify(response.data)));
+        
       } else {
+        window.location.href = "/error"
         console.log("user not found");
       }
     });

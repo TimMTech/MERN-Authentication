@@ -3,14 +3,23 @@ import MessageBoard from "../../Components/MessageBoard/MessageBoard";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 
-const Home = ({ messages, isAdmin, isLoading }) => {
+const Home = ({ messages, isMember, isLoading }) => {
+  const keyCheck = messages.map((post) => {
+    return Object.keys(post).includes("message");
+  });
+
   return (
     <>
       {isLoading ? (
         <Loading loading={isLoading} />
       ) : (
         <HomeWrapper>
-          {messages && messages.length === 0 && (
+          {keyCheck.includes(true) ? (
+            <>
+              <Title>Message Board</Title>
+              <MessageBoard messages={messages} isAdmin={isMember} />
+            </>
+          ) : (
             <IntroWrapper>
               <Welcome>Welcome To ChatBot!</Welcome>
               <IntroLogin>Login To Start Posting Your Thoughts!!</IntroLogin>
@@ -19,12 +28,6 @@ const Home = ({ messages, isAdmin, isLoading }) => {
               </IntroSignUp>
               <SignUpButton to="/signup">Sign Up!</SignUpButton>
             </IntroWrapper>
-          )}
-          {messages && messages.length > 0 && (
-            <>
-              <Title>Message Board</Title>
-              <MessageBoard messages={messages} isAdmin={isAdmin} />
-            </>
           )}
         </HomeWrapper>
       )}
@@ -58,7 +61,6 @@ const IntroLogin = styled.p``;
 const IntroSignUp = styled.p`
   padding-top: 3rem;
 `;
-
 
 const SignUpButton = styled(Link)`
   text-decoration: none;

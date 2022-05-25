@@ -43,18 +43,24 @@ router.post("/login", async (req, res) => {
       {
         firstname: user.firstname,
         username: user.username,
-      }, 
+      },
       "secret123"
     );
-    return res.json({ status: "ok", user: token, details: user.username, admin: user.admin });
+    return res.json({
+      status: "ok",
+      user: token,
+      details: user.username,
+      member: user.member,
+      admin: user.admin,
+    });
   } else {
     return res.json({ status: "error", user: false });
   }
-});  
-   
+});
+
 router.post("/message", async (req, res) => {
-  const token = req.headers.authorization
-     
+  const token = req.headers.authorization;
+
   try {
     const decoded = jwt.verify(token, "secret123");
     const username = decoded.username;
@@ -66,19 +72,18 @@ router.post("/message", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.json({ status: "error", error: "invalid token" });
-  }    
-});   
+  }
+});
 
 router.get("/message", async (req, res) => {
-  const posts = User.find()
+  const posts = User.find();
   posts
     .then((data) => {
-      res.json(data)
-      
+      res.json(data);
     })
     .catch((err) => {
-      res.json(err)
-    })
-})
-    
+      res.json(err);
+    });
+});
+
 module.exports = router;

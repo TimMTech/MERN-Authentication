@@ -20,6 +20,10 @@ const userTemplate = new mongoose.Schema({
     message: {
         type: String
     },
+    member: {
+        type:Boolean,
+        default: false
+    },
     admin: {
         type: Boolean,
         default: false

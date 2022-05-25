@@ -4,7 +4,7 @@ import Unauthenticated from "../AuthenticationErrors/Unauthenticated";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 
-const DashBoard = ({ messages, isAuthenticated, isAdmin, isLoading }) => {
+const DashBoard = ({ messages, isAuthenticated, isMember, isLoading }) => {
   return (
     <>
       {isLoading ? (
@@ -15,12 +15,13 @@ const DashBoard = ({ messages, isAuthenticated, isAdmin, isLoading }) => {
             <DashBoardWrapper>
               <LeftPanel>
                 <NewMessage to={"/new-message"}>+ New Message</NewMessage>
-                <BecomeMember>Become Member</BecomeMember>
-                <BecomeAdmin>Become Admin</BecomeAdmin>
+                <BecomeMember to={"/become-member"}>Become Member</BecomeMember>
+                <BecomeAdmin to={"/become-admin"}>Become Admin</BecomeAdmin>
               </LeftPanel>
               <RightPanel>
                 <Title>Dashboard</Title>
-                <MessageBoard messages={messages} isAdmin={isAdmin} />
+                <Caption>Message Board</Caption>
+                <MessageBoard messages={messages} isAdmin={isMember} />
               </RightPanel>
             </DashBoardWrapper>
           ) : (
@@ -48,6 +49,15 @@ const Title = styled.h1`
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
+`;
+
+const Caption = styled.p`
+  color: rgb(255, 255, 255);
+  font-family: ChakraPetch Bold;
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem 0;
+  letter-spacing: 0.5rem;
 `;
 
 const LeftPanel = styled.div`
@@ -80,7 +90,8 @@ const NewMessage = styled(Link)`
   }
 `;
 
-const BecomeMember = styled.button`
+const BecomeMember = styled(Link)`
+  text-decoration: none;
   padding-left: 1rem;
   width: 100%;
   border: none;
@@ -96,7 +107,8 @@ const BecomeMember = styled.button`
   }
 `;
 
-const BecomeAdmin = styled.button`
+const BecomeAdmin = styled(Link)`
+text-decoration: none;
   padding-left: 1rem;
   width: 100%;
   border: none;

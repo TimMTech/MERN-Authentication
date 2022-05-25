@@ -10,11 +10,16 @@ import postMessage from "./Utils/API/postMessage";
 import getMessage from "./Utils/API/getMessage";
 import Home from "./Pages/Home/Home";
 import CreateMessage from "./Pages/CreateMessage/CreateMessage";
+import BecomeMember from "./Pages/BecomeMember/BecomeMember";
+import BecomeAdmin from "./Pages/BecomeAdmin/BecomeAdmin";
+import IncorrectCedentials from "./Pages/AuthenticationErrors/IncorrectCedentials";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isMember, setIsMember] = useState(false);
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -88,10 +93,10 @@ const App = () => {
       setIsAuthenticated(false);
     } else {
       setIsAuthenticated(true);
-      if (user.admin === true) {
-        setIsAdmin(true);
+      if (user.member === true) {
+        setIsMember(true);
       } else {
-        setIsAdmin(false);
+        setIsMember(false);
       }
     }
   }, [handleLoginSubmit, user]);
@@ -103,7 +108,7 @@ const App = () => {
   useEffect(() => {
     getMessage((messages) => {
       setMessages(messages);
-      setIsLoading(false)
+      setIsLoading(false);
     });
   }, []);
 
@@ -114,7 +119,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Home messages={messages} isAdmin={isAdmin} isLoading={isLoading} />
+            <Home messages={messages} isMember={isMember} isLoading={isLoading} />
           }
         />
         <Route
@@ -143,8 +148,10 @@ const App = () => {
             <DashBoard
               messages={messages}
               isAuthenticated={isAuthenticated}
-              isAdmin={isAdmin}
+              isMember={isMember}
               isLoading={isLoading}
+              handleBecomeMember
+              handleBecomeAdmin
             />
           }
         />
@@ -158,6 +165,32 @@ const App = () => {
               isAuthenticated={isAuthenticated}
             />
           }
+        />
+        <Route
+          path="/become-member"
+          element={
+            <BecomeMember
+              isAuthenticated={isAuthenticated}
+              memberValues
+              handleMemberChange
+              handleMemberSubmit
+            />
+          }
+        />
+        <Route
+          path="/become-admin"
+          element={
+            <BecomeAdmin
+              isAuthenticated={isAuthenticated}
+              adminValues
+              handleAdminChange
+              handleAdminSubmit
+            />
+          }
+        />
+        <Route
+          path="/error"
+          element={<IncorrectCedentials />}
         />
       </Routes>
     </>
