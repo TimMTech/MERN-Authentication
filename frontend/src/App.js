@@ -13,6 +13,7 @@ import CreateMessage from "./Pages/CreateMessage/CreateMessage";
 import BecomeMember from "./Pages/BecomeMember/BecomeMember";
 import BecomeAdmin from "./Pages/BecomeAdmin/BecomeAdmin";
 import IncorrectCedentials from "./Pages/AuthenticationErrors/IncorrectCedentials";
+import UsernameExists from "./Pages/AuthenticationErrors/UsernameExists";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,6 +23,13 @@ const App = () => {
   const [isMember, setIsMember] = useState(false);
 
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState({
+    firstname: "",
+    email: "",
+    username: "",
+    password: "",
+  });
 
   const [loginValues, setLoginValues] = useState({
     username: "",
@@ -71,8 +79,50 @@ const App = () => {
   };
 
   const handleSubmitSignUp = () => {
+    if (!signUpValues.firstname) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        firstname: "Please Fill Out First Name",
+      }));
+    } else
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        firstname: "",
+      }));
+    if (!signUpValues.email) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        email: "Please Fill Out Email",
+      }));
+    } else {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        email: "",
+      }));
+    }
+    if (signUpValues.username.length < 6) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        username: "Username Must Be Longer Than 6 Characters",
+      }));
+    } else {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        username: "",
+      }));
+    }
+    if (!signUpValues.password) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        password: "Password Must Be Longer Than 6 Characters",
+      }));
+    } else {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        password: "",
+      }));
+    }
     postUser(signUpValues);
-    window.location.href = "/login";
   };
 
   const handleMessageChange = (e) => {
@@ -85,7 +135,7 @@ const App = () => {
 
   const handleMessageSubmit = () => {
     postMessage(newMessage);
-    window.location.href = "/dashboard";
+    
   };
 
   useEffect(() => {
@@ -119,7 +169,11 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Home messages={messages} isMember={isMember} isLoading={isLoading} />
+            <Home
+              messages={messages}
+              isMember={isMember}
+              isLoading={isLoading}
+            />
           }
         />
         <Route
@@ -139,6 +193,7 @@ const App = () => {
               signUpValues={signUpValues}
               handleSignUpChange={handleSignUpChange}
               handleSubmitSignUp={handleSubmitSignUp}
+              errorMessage={errorMessage}
             />
           }
         />
@@ -188,10 +243,8 @@ const App = () => {
             />
           }
         />
-        <Route
-          path="/error"
-          element={<IncorrectCedentials />}
-        />
+        <Route path="/error" element={<IncorrectCedentials />} />
+        <Route path="/username-exists" element={<UsernameExists />} />
       </Routes>
     </>
   );

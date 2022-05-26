@@ -3,26 +3,39 @@ const router = express.Router();
 const User = require("../Models/userTemplate.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { body, validationResult } = require("express-validator");
 
-router.post("/signup", async (req, res) => {
-  const saltPassword = await bcrypt.genSalt(10);
-  const securePassword = await bcrypt.hash(req.body.password, saltPassword);
+router.post(
+  "/signup",
+  body("firstname").isLength({ min: 1 }),
+  body("email").isEmail(),
+  body("username").isLength({ min: 6 }),
+  body("password").isLength({ min: 6 }),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: "404 Error" });
+    }
+    const existUsername = await User.findOne({ username: req.body.username });
+    if (existUsername) {
+      return res.status(400).json({ error: "Username Already Exists" });
+    }
 
-  const newUser = new User({
-    firstname: req.body.firstname,
-    email: req.body.email,
-    username: req.body.username,
-    password: securePassword,
-  });
-  newUser
-    .save()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json(err);
+    const saltPassword = await bcrypt.genSalt(10);
+    const securePassword = await bcrypt.hash(req.body.password, saltPassword);
+
+    const newUser = new User({
+      firstname: req.body.firstname,
+      email: req.body.email,
+      username: req.body.username,
+      password: securePassword,
     });
-});
+
+    newUser.save().then((data) => {
+      res.json(data);
+    });
+  }
+);
 
 router.post("/login", async (req, res) => {
   const user = await User.findOne({
@@ -30,7 +43,8 @@ router.post("/login", async (req, res) => {
   });
 
   if (!user) {
-    return res.json({ status: "error", user: "Invalid Login" });
+    
+    return res.status(401).json({error: 'Empty Username'})
   }
 
   const isPasswordValid = await bcrypt.compare(
@@ -54,25 +68,26 @@ router.post("/login", async (req, res) => {
       admin: user.admin,
     });
   } else {
-    return res.json({ status: "error", user: false });
+    return res.status(401).json({  user: false });
   }
 });
 
 router.post("/message", async (req, res) => {
   const token = req.headers.authorization;
 
-  try {
-    const decoded = jwt.verify(token, "secret123");
-    const username = decoded.username;
-    await User.updateOne(
-      { username: username },
-      { $set: { message: req.body.message } }
-    );
-    return res.json({ status: "ok" });
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", error: "invalid token" });
-  }
+  const decoded = jwt.verify(token, "secret123");
+  const username = decoded.username;
+  await User.updateOne(
+    { username: username },
+    { $set: { message: req.body.message } }
+  )
+  .then((data) => {
+    return res.json(data)
+  })
+  .catch((err) => {
+    return res.status(401)
+  })
+  
 });
 
 router.get("/message", async (req, res) => {
@@ -82,7 +97,7 @@ router.get("/message", async (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      res.json(err);
+      res.status(400);
     });
 });
 

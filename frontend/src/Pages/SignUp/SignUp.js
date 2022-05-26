@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-const SignUp = ({ signUpValues, handleSignUpChange, handleSubmitSignUp }) => {
+const SignUp = ({ signUpValues, handleSignUpChange, handleSubmitSignUp, errorMessage }) => {
   return (
     <FormWrapper>
       <StyledForm method="POST" action="/">
         <Title>Sign Up!</Title>
+        {errorMessage.firstname}
         <StyledInput
           name="firstname"
           value={signUpValues.firstname}
@@ -12,6 +13,7 @@ const SignUp = ({ signUpValues, handleSignUpChange, handleSubmitSignUp }) => {
           type="text"
           placeholder="First Name"
         />
+        {errorMessage.email}
         <StyledInput
           name="email"
           value={signUpValues.email}
@@ -19,6 +21,7 @@ const SignUp = ({ signUpValues, handleSignUpChange, handleSubmitSignUp }) => {
           type="email"
           placeholder="Email"
         />
+        {errorMessage.username}
         <StyledInput
           name="username"
           value={signUpValues.username}
@@ -26,6 +29,7 @@ const SignUp = ({ signUpValues, handleSignUpChange, handleSubmitSignUp }) => {
           type="text"
           placeholder="Username"
         />
+        {errorMessage.password}
         <StyledInput
           name="password"
           value={signUpValues.password}

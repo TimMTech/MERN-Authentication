@@ -10,7 +10,10 @@ const postMessage = (messageValues) => {
       },
     })
 
-    .then((response) => console.log(response));
+    .then((response) => {
+      console.log(response);
+      window.location.href = "/dashboard";
+    });
 };
 
 export default postMessage;
