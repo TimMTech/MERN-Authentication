@@ -8,6 +8,7 @@ const postUser = (signUpValues) => {
       window.location.href = "/login";
     })
     .catch((err) => {
+      console.log(err)
       if (err.response.data.error === "Username Already Exists")
         window.location.href = "/username-exists";
     });

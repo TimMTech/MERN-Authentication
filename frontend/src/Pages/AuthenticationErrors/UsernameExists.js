@@ -33,6 +33,7 @@ const ErrorMessageWrapper = styled.div`
   border-radius: 1rem;
   width: 70%;
   height: 20rem;
+  
 `;
 
 const ErrorTitle = styled.h1`
@@ -54,7 +55,7 @@ const ErrorTitle = styled.h1`
 `;
 
 const ErrorMessage = styled.p`
-  font-size: 2rem;
+  font-size: 2vw;
   animation-name: re-size;
   animation-duration: 2s;
   animation-iteration-count: infinite;
