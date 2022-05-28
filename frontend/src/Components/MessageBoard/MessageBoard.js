@@ -79,4 +79,14 @@ const Username = styled.p`
   text-align: right;
 `;
 
-const DeletePost = styled.button``;
+const DeletePost = styled.button`
+  font-family: ChakraPetch Regular;
+  width: 25%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgb(255, 255, 255);
+  transition: 1s;
+  &: hover {
+    cursor: pointer;
+    transform: scale(1.1,1.1);
+  }
+`;

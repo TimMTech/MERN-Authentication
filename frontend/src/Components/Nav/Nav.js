@@ -10,7 +10,7 @@ const Nav = ({ userLoggedIn, user, handleLogOut }) => {
       <MenuWrapper>
         {userLoggedIn ? (
           <UserWrapper>
-            <UserName>{user.details}</UserName>
+            <UserName>{user.username}</UserName>
             <LogOutButton to="/" onClick={handleLogOut}>
               Log Out
             </LogOutButton>
