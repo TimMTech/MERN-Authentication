@@ -4,7 +4,14 @@ import Unauthenticated from "../AuthenticationErrors/Unauthenticated";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 
-const DashBoard = ({ messages, isAuthenticated, isMember, isLoading }) => {
+const DashBoard = ({
+  messages,
+  isAuthenticated,
+  isMember,
+  isAdmin,
+  isLoading,
+  deletePost,
+}) => {
   return (
     <>
       {isLoading ? (
@@ -21,7 +28,12 @@ const DashBoard = ({ messages, isAuthenticated, isMember, isLoading }) => {
               <RightPanel>
                 <Title>Dashboard</Title>
                 <Caption>Message Board</Caption>
-                <MessageBoard messages={messages} isAdmin={isMember} />
+                <MessageBoard
+                  messages={messages}
+                  isMember={isMember}
+                  isAdmin={isAdmin}
+                  deletePost={deletePost}
+                />
               </RightPanel>
             </DashBoardWrapper>
           ) : (

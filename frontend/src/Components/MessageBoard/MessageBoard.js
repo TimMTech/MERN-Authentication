@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import moment from "moment";
 
-const MessageBoard = ({ messages, isMember }) => {
+const MessageBoard = ({ messages, isMember, isAdmin, deletePost }) => {
   const dateFormat = (date) => {
     return moment(date).startOf("hour").fromNow();
   };
@@ -24,6 +24,7 @@ const MessageBoard = ({ messages, isMember }) => {
                 ) : (
                   <Username>anonymous</Username>
                 )}
+                {isAdmin && <DeletePost onClick={() => deletePost(post)}>X</DeletePost>}
               </AuthorDiv>
             </PostWrapper>
           );
@@ -42,6 +43,7 @@ const MessageBoardWrapper = styled.div`
   align-items: center;
   gap: 2rem;
   padding-bottom: 2rem;
+  font-family: ChakraPetch Regular;
 `;
 
 const PostWrapper = styled.div`
@@ -76,3 +78,5 @@ const Date = styled.p`
 const Username = styled.p`
   text-align: right;
 `;
+
+const DeletePost = styled.button``;

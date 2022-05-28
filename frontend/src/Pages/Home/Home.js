@@ -3,7 +3,7 @@ import MessageBoard from "../../Components/MessageBoard/MessageBoard";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 
-const Home = ({ messages, isMember, isLoading }) => {
+const Home = ({ messages, isMember, isAdmin, isLoading, deletePost }) => {
   const keyCheck = messages.map((post) => {
     return Object.keys(post).includes("message");
   });
@@ -17,7 +17,12 @@ const Home = ({ messages, isMember, isLoading }) => {
           {keyCheck.includes(true) ? (
             <>
               <Title>Message Board</Title>
-              <MessageBoard messages={messages} isAdmin={isMember} />
+              <MessageBoard
+                messages={messages}
+                isMember={isMember}
+                isAdmin={isAdmin}
+                deletePost={deletePost}
+              />
             </>
           ) : (
             <IntroWrapper>

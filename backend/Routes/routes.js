@@ -4,6 +4,7 @@ const User = require("../Models/userTemplate.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
+const { json } = require("express");
 
 router.post(
   "/signup",
@@ -43,8 +44,7 @@ router.post("/login", async (req, res) => {
   });
 
   if (!user) {
-    
-    return res.status(401).json({error: 'Username Does Not Exist'})
+    return res.status(401).json({ error: "Username Does Not Exist" });
   }
 
   const isPasswordValid = await bcrypt.compare(
@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
       admin: user.admin,
     });
   } else {
-    return res.status(401).json({  user: false });
+    return res.status(401).json({ user: false });
   }
 });
 
@@ -81,13 +81,12 @@ router.post("/message", async (req, res) => {
     { username: username },
     { $set: { message: req.body.message } }
   )
-  .then((data) => {
-    return res.json(data)
-  })
-  .catch((err) => {
-    return res.status(401)
-  })
-  
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((err) => {
+      return res.status(401).json({ error: err });
+    });
 });
 
 router.get("/message", async (req, res) => {
@@ -97,8 +96,29 @@ router.get("/message", async (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      res.status(400);
+      res.status(400).json({ error: err });
     });
 });
 
-module.exports = router;
+
+
+router.post("/message/delete", async (req, res) => {
+  
+   await User.findOneAndUpdate( 
+    { username: req.body.username},
+    {$unset : {message: ""}}
+  ).then((data) => {
+    res.json(data)
+  })
+  .catch((err) => {
+    res.status(400).json({error: err})
+  })
+
+  
+}); 
+
+
+
+
+
+module.exports = router; 

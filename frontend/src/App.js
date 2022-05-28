@@ -8,6 +8,7 @@ import postUser from "./Utils/API/postUser";
 import loginUser from "./Utils/API/loginUser";
 import postMessage from "./Utils/API/postMessage";
 import getMessage from "./Utils/API/getMessage";
+import adminDeletePost from "./Utils/API/adminDeletePost";
 import Home from "./Pages/Home/Home";
 import CreateMessage from "./Pages/CreateMessage/CreateMessage";
 import BecomeMember from "./Pages/BecomeMember/BecomeMember";
@@ -135,7 +136,10 @@ const App = () => {
 
   const handleMessageSubmit = () => {
     postMessage(newMessage);
-    
+  };
+
+  const deletePost = (post) => {
+    adminDeletePost(post);
   };
 
   useEffect(() => {
@@ -147,6 +151,11 @@ const App = () => {
         setIsMember(true);
       } else {
         setIsMember(false);
+      }
+      if (user.admin === true) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
       }
     }
   }, [handleLoginSubmit, user]);
@@ -173,6 +182,8 @@ const App = () => {
               messages={messages}
               isMember={isMember}
               isLoading={isLoading}
+              isAdmin={isAdmin}
+              deletePost={deletePost}
             />
           }
         />
@@ -204,7 +215,9 @@ const App = () => {
               messages={messages}
               isAuthenticated={isAuthenticated}
               isMember={isMember}
+              isAdmin={isAdmin}
               isLoading={isLoading}
+              deletePost={deletePost}
               handleBecomeMember
               handleBecomeAdmin
             />
