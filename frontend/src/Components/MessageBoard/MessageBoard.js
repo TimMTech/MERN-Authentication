@@ -24,7 +24,9 @@ const MessageBoard = ({ messages, isMember, isAdmin, deletePost }) => {
                 ) : (
                   <Username>anonymous</Username>
                 )}
-                {isAdmin && <DeletePost onClick={() => deletePost(post)}>X</DeletePost>}
+                {isAdmin && (
+                  <DeletePost onClick={() => deletePost(post)}>X</DeletePost>
+                )}
               </AuthorDiv>
             </PostWrapper>
           );
@@ -87,6 +89,6 @@ const DeletePost = styled.button`
   transition: 1s;
   &: hover {
     cursor: pointer;
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
   }
 `;

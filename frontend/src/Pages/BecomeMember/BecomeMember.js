@@ -6,7 +6,7 @@ const BecomeMember = ({isAuthenticated, memberValues, handleMemberChange, handle
       <>
         {isAuthenticated ? (
           <FormWrapper>
-            <StyledForm>
+            <StyledForm method="POST" action="/">
               <Title>Enter Member Password</Title>
               <StyledInput
                 name="password"
@@ -15,6 +15,7 @@ const BecomeMember = ({isAuthenticated, memberValues, handleMemberChange, handle
                 type="password"
                 placeholder="Password"
               />
+              
               <SubmitMember type="button" onClick={handleMemberSubmit}>
                 Log In!
               </SubmitMember>

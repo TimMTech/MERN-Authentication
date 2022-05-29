@@ -11,7 +11,7 @@ const BecomeAdmin = ({
     <>
       {isAuthenticated ? (
         <FormWrapper>
-          <StyledForm>
+          <StyledForm method="POST" action="/">
             <Title>Enter Admin Password</Title>
             <StyledInput
               name="password"

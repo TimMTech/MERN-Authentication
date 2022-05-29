@@ -1,20 +1,37 @@
-import DashBoard from "./Pages/Dashboard/Dashboard";
-import Nav from "./Components/Nav/Nav";
-import Login from "./Pages/Login/Login";
-import SignUp from "./Pages/SignUp/SignUp";
+// React Library Imports //
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
+
+// Utility Imports //
 import postUser from "./Utils/API/postUser";
 import loginUser from "./Utils/API/loginUser";
 import postMessage from "./Utils/API/postMessage";
 import getMessage from "./Utils/API/getMessage";
 import adminDeletePost from "./Utils/API/adminDeletePost";
+import becomeMember from "./Utils/API/becomeMember";
+import becomeAdmin from "./Utils/API/becomeAdmin";
+
+// Component Imports //
+import Nav from "./Components/Nav/Nav";
+
+// Page Imports //
+import DashBoard from "./Pages/Dashboard/Dashboard";
+import Login from "./Pages/Login/Login";
+import SignUp from "./Pages/SignUp/SignUp";
 import Home from "./Pages/Home/Home";
 import CreateMessage from "./Pages/CreateMessage/CreateMessage";
 import BecomeMember from "./Pages/BecomeMember/BecomeMember";
 import BecomeAdmin from "./Pages/BecomeAdmin/BecomeAdmin";
+
+// Page Imports:Error Messages //
 import IncorrectCedentials from "./Pages/AuthenticationErrors/IncorrectCedentials";
 import UsernameExists from "./Pages/AuthenticationErrors/UsernameExists";
+import IncorrectMemberPassword from "./Pages/AuthenticationErrors/IncorrectMemberPassword.js";
+import IncorrectAdminPassword from "./Pages/AuthenticationErrors/IncorrectAdminPassword";
+
+// Page Imports:Membership Rules //
+import MemberRules from "./Pages/MembershipRules/MemberRules";
+import AdminRules from "./Pages/MembershipRules/AdminRules";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,8 +39,14 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [isMember, setIsMember] = useState(false);
+  const [memberValues, setMemberValues] = useState({
+    password: "",
+  });
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adminValues, setAdminValues] = useState({
+    password: "",
+  });
 
   const [errorMessage, setErrorMessage] = useState({
     firstname: "",
@@ -51,6 +74,29 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   const [messages, setMessages] = useState([]);
+
+  const handleMemberChange = (e) => {
+    const { name, value } = e.target;
+    setMemberValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleMemberSubmit = () => {
+    becomeMember(memberValues);
+  };
+
+  const handleAdminChange = (e) => {
+    const { name, value } = e.target;
+    setAdminValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleAdminSubmit = () => {
+    becomeAdmin(adminValues);
+  };
 
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
@@ -140,6 +186,7 @@ const App = () => {
 
   const deletePost = (post) => {
     adminDeletePost(post);
+    console.log(post);
   };
 
   useEffect(() => {
@@ -239,9 +286,9 @@ const App = () => {
           element={
             <BecomeMember
               isAuthenticated={isAuthenticated}
-              memberValues
-              handleMemberChange
-              handleMemberSubmit
+              memberValues={memberValues}
+              handleMemberChange={handleMemberChange}
+              handleMemberSubmit={handleMemberSubmit}
             />
           }
         />
@@ -250,14 +297,25 @@ const App = () => {
           element={
             <BecomeAdmin
               isAuthenticated={isAuthenticated}
-              adminValues
-              handleAdminChange
-              handleAdminSubmit
+              adminValues={adminValues}
+              handleAdminChange={handleAdminChange}
+              handleAdminSubmit={handleAdminSubmit}
             />
           }
         />
         <Route path="/error" element={<IncorrectCedentials />} />
         <Route path="/username-exists" element={<UsernameExists />} />
+        <Route
+          path="/incorrect-member-password"
+          element={<IncorrectMemberPassword />}
+        />
+        '
+        <Route
+          path="/incorrect-admin-password"
+          element={<IncorrectAdminPassword />}
+        />
+        <Route path="/member-rules" element={<MemberRules />} />
+        <Route path="/admin-rules" element={<AdminRules />} />
       </Routes>
     </>
   );

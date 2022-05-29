@@ -10,6 +10,10 @@ router.post("/message", userController.postMessage);
 
 router.get("/message", userController.messageList);
 
-router.post("/message/delete", userController.deletePost);
+router.post("/become-member", userController.becomeMember)
 
+router.post("/become-admin", userController.becomeAdmin)
+
+router.post("/delete", userController.deletePost);
+  
 module.exports = router;
