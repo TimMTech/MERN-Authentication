@@ -3,13 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 
 // Utility Imports //
-import postUser from "./Utils/API/postUser";
-import loginUser from "./Utils/API/loginUser";
-import postMessage from "./Utils/API/postMessage";
-import getMessage from "./Utils/API/getMessage";
-import adminDeletePost from "./Utils/API/adminDeletePost";
-import becomeMember from "./Utils/API/becomeMember";
-import becomeAdmin from "./Utils/API/becomeAdmin";
+
+import { postUser, loginUser } from "./Utils/API/userData";
+import { postMessage, getMessage, adminDeletePost } from "./Utils/API/messageData";
+import {becomeAdmin, becomeMember} from "./Utils/API/authorizationData"
 
 // Component Imports //
 import Nav from "./Components/Nav/Nav";

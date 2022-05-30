@@ -3,7 +3,7 @@ import moment from "moment";
 
 const MessageBoard = ({ messages, isMember, isAdmin, deletePost }) => {
   const dateFormat = (date) => {
-    return moment(date).startOf("hour").fromNow();
+    return moment(date).startOf("day").fromNow();
   };
 
   return (
