@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 export const postUser = (signUpValues) => {
   axios
@@ -18,12 +18,17 @@ export const loginUser = (loginValues) => {
   axios
     .post("http://localhost:5000/auth/login", loginValues)
     .then((response) => {
-      if (response.data.status === "ok") {
-        localStorage.setItem("user", JSON.stringify(response.data));
-        window.location.href = "/dashboard";
-      } else {
-        window.location.href = "/error";
-        console.log("user not found");
-      }
-    });
+      localStorage.setItem("user", JSON.stringify(response.data));
+      window.location.href = "/dashboard";
+    })
+    .catch((err) => {
+      window.location.href = "/error"
+      console.log(err)
+    })
+};
+
+export const logoutUser = () => {
+  window.location.href = "/";
+  window.localStorage.clear();
+  window.localStorage.removeItem("user");
 };

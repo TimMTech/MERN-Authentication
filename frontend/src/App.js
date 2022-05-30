@@ -4,9 +4,13 @@ import { useEffect, useState, useCallback } from "react";
 
 // Utility Imports //
 
-import { postUser, loginUser } from "./Utils/API/userData";
-import { postMessage, getMessage, adminDeletePost } from "./Utils/API/messageData";
-import {becomeAdmin, becomeMember} from "./Utils/API/authorizationData"
+import { postUser, loginUser, logoutUser } from "./Utils/API/userData";
+import {
+  postMessage,
+  getMessage,
+  adminDeletePost,
+} from "./Utils/API/messageData";
+import { becomeAdmin, becomeMember } from "./Utils/API/authorizationData";
 
 // Component Imports //
 import Nav from "./Components/Nav/Nav";
@@ -105,9 +109,7 @@ const App = () => {
 
   const handleLogOut = () => {
     setIsAuthenticated(false);
-    window.location.href = "/";
-    window.localStorage.clear();
-    window.localStorage.removeItem("user");
+    logoutUser();
   };
 
   const handleLoginSubmit = useCallback(() => {
@@ -311,8 +313,21 @@ const App = () => {
           path="/incorrect-admin-password"
           element={<IncorrectAdminPassword />}
         />
-        <Route path="/member-rules" element={<MemberRules />} />
-        <Route path="/admin-rules" element={<AdminRules />} />
+        <Route
+          path="/member-rules"
+          element={
+            <MemberRules
+              isAuthenticated={isAuthenticated}
+              isMember={isMember}
+            />
+          }
+        />
+        <Route
+          path="/admin-rules"
+          element={
+            <AdminRules isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
+          }
+        />
       </Routes>
     </>
   );

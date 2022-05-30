@@ -1,33 +1,51 @@
 import styled from "styled-components";
+import Unauthenticated from "../AuthenticationErrors/Unauthenticated";
+import NotAdmin from "../AuthenticationErrors/NotAdmin";
 
-const AdminRules = () => {
+const AdminRules = ({ isAuthenticated, isAdmin }) => {
   return (
-    <AdminRulesWrapper>
-      <AdminRuleListWrapper>
-        <AdminRulesTitle>CONGRATULATIONS ON BECOMING AN ADMIN!</AdminRulesTitle>
-        <AdminRulesList>
-          <Rules>
-            As an admin you now have the most highest authority in our
-            community. Please keep the message feed clean and vulgar-free.
-          </Rules>
-          <Rules>
-            As an admin you now have the ability to remove posts at will. If you
-            see any offensive, vulgar etc posts, please remove as soon as you
-            can.
-          </Rules>
-          <Rules>
-            As an admin please have a look out for anhy unsolicitated
-            advertisements that are being posted on our feed. Many of the links
-            usually are cyber attacks in the making.
-          </Rules>
-          <Rules>
-            If you see a flood of post bots in the feed, please immediately
-            notify our IT team so we can return operations back to normal.
-          </Rules>
-        </AdminRulesList>
-        <PS>Please re log back in for changes to take place.</PS>
-      </AdminRuleListWrapper>
-    </AdminRulesWrapper>
+    <>
+      {isAuthenticated ? (
+        <>
+          {isAdmin ? (
+            <AdminRulesWrapper>
+              <AdminRuleListWrapper>
+                <AdminRulesTitle>
+                  CONGRATULATIONS ON BECOMING AN ADMIN!
+                </AdminRulesTitle>
+                <AdminRulesList>
+                  <Rules>
+                    As an admin you now have the most highest authority in our
+                    community. Please keep the message feed clean and
+                    vulgar-free.
+                  </Rules>
+                  <Rules>
+                    As an admin you now have the ability to remove posts at
+                    will. If you see any offensive, vulgar etc posts, please
+                    remove as soon as you can.
+                  </Rules>
+                  <Rules>
+                    As an admin please have a look out for anhy unsolicitated
+                    advertisements that are being posted on our feed. Many of
+                    the links usually are cyber attacks in the making.
+                  </Rules>
+                  <Rules>
+                    If you see a flood of post bots in the feed, please
+                    immediately notify our IT team so we can return operations
+                    back to normal.
+                  </Rules>
+                </AdminRulesList>
+                <PS>Please re log back in for changes to take place.</PS>
+              </AdminRuleListWrapper>
+            </AdminRulesWrapper>
+          ) : (
+            <NotAdmin />
+          )}
+        </>
+      ) : (
+        <Unauthenticated />
+      )}
+    </>
   );
 };
 
@@ -51,6 +69,7 @@ const AdminRuleListWrapper = styled.div`
   border-radius: 1rem;
   width: 80%;
   height: 100%;
+  padding: 0.5rem;
 `;
 
 const AdminRulesTitle = styled.h1`
@@ -67,7 +86,7 @@ const AdminRulesList = styled.ul`
 
 const Rules = styled.li`
   color: rgb(255, 255, 255);
-  padding: 0.5rem;
+  padding: 1.2rem;
 `;
 
 const PS = styled.p`
