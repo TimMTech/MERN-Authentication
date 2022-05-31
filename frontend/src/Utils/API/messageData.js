@@ -5,7 +5,7 @@ export const postMessage = (messageValues) => {
 
   axios
     .post(
-      "https://mern-authorization-top.herokuapp.com/auth/message",
+      "https://mern-authorization-app.herokuapp.com/auth/message",
       messageValues,
       {
         headers: {
@@ -22,10 +22,10 @@ export const postMessage = (messageValues) => {
 
 export const getMessage = (callback) => {
   axios
-    .get("https://mern-authorization-top.herokuapp.com/auth/message")
+    .get("https://mern-authorization-app.herokuapp.com/auth/message")
     .then((response) => {
       callback(response.data);
-      console.log(response)
+      console.log(response);
     })
     .catch((err) => {
       console.log(err);
@@ -34,7 +34,7 @@ export const getMessage = (callback) => {
 
 export const adminDeletePost = (post) => {
   axios
-    .post("https://mern-authorization-top.herokuapp.com/auth/delete", post)
+    .post("https://mern-authorization-app.herokuapp.com/auth/delete", post)
 
     .then((response) => {
       console.log(response);

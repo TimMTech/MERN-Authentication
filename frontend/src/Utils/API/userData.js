@@ -3,7 +3,7 @@ import axios from "axios";
 export const postUser = (signUpValues) => {
   axios
     .post(
-      "https://mern-authorization-top.herokuapp.com/auth/signup",
+      "https://mern-authorization-app.herokuapp.com/auth/signup",
       signUpValues
     )
     .then((response) => {
@@ -20,7 +20,7 @@ export const postUser = (signUpValues) => {
 export const loginUser = (loginValues) => {
   axios
     .post(
-      "https://mern-authorization-top.herokuapp.com/auth/login",
+      "https://mern-authorization-app.herokuapp.com/auth/login",
       loginValues
     )
     .then((response) => {

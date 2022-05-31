@@ -4,7 +4,7 @@ export const becomeAdmin = (adminValues) => {
   const token = JSON.parse(localStorage.getItem("user")).user;
   axios
     .post(
-      "https://mern-authorization-top.herokuapp.com/auth/become-admin",
+      "https://mern-authorization-app.herokuapp.com/auth/become-admin",
       adminValues,
       {
         headers: {
@@ -26,7 +26,7 @@ export const becomeMember = (memberValues) => {
   const token = JSON.parse(localStorage.getItem("user")).user;
   axios
     .post(
-      "https://mern-authorization-top.herokuapp.com/auth/become-member",
+      "https://mern-authorization-app.herokuapp.com/auth/become-member",
       memberValues,
       {
         headers: {
