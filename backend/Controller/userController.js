@@ -68,6 +68,7 @@ exports.loginIn = async (req, res) => {
         username: user.username,
       },
       "secret123"
+      
     );
     return res.json({
       status: "ok",

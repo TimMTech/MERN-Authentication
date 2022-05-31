@@ -92,4 +92,8 @@ const Title = styled.h1`
   text-align: center;
   padding-top: 2rem;
   letter-spacing: 1rem;
+  @media (max-width: 750px) {
+    font-size: 2rem;
+    
+  }
 `;

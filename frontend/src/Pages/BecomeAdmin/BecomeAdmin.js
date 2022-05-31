@@ -57,6 +57,12 @@ const StyledForm = styled.form`
   border: 0.15rem solid rgb(255, 255, 255);
   width: 50%;
   height: 30rem;
+  @media (max-width: 750px) {
+    width: 100%;
+    height: 100vh;
+    border: none;
+    border-top: 0.15rem solid rgb(255, 255, 255);
+  }
 `;
 
 const StyledInput = styled.input`

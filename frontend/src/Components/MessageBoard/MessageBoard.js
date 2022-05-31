@@ -60,6 +60,9 @@ const PostWrapper = styled.div`
   padding: 1rem;
   height: 15rem;
   width: 50%;
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 `;
 const MessageDiv = styled.div`
   background-color: rgba(255, 255, 255, 0.1);

@@ -19,7 +19,8 @@ export const loginUser = (loginValues) => {
     .post("http://localhost:5000/auth/login", loginValues)
     .then((response) => {
       localStorage.setItem("user", JSON.stringify(response.data));
-      window.location.href = "/dashboard";
+      console.log(response)
+      window.location.href = "/dashboard"
     })
     .catch((err) => {
       window.location.href = "/error"

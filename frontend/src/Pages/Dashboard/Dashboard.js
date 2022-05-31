@@ -80,11 +80,17 @@ const LeftPanel = styled.div`
   flex-direction: column;
   align-items: center;
   border-right: 0.1rem solid rgb(255, 255, 255);
+  @media (max-width: 750px) {
+    position: relative;
+  }
 `;
 
 const RightPanel = styled.div`
   width: 100%;
   border-top: 0.1rem solid rgb(255, 255, 255);
+  @media (max-width: 750px) {
+    position: relative;
+  }
 `;
 
 const NewMessage = styled(Link)`
