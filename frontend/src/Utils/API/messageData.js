@@ -25,6 +25,7 @@ export const getMessage = (callback) => {
     .get("https://mern-authorization-top.herokuapp.com/auth/message")
     .then((response) => {
       callback(response.data);
+      console.log(response)
     })
     .catch((err) => {
       console.log(err);
