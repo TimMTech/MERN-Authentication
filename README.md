@@ -4,6 +4,11 @@ This is an implementation of the Members Only project using MERN Stack completed
 
 <img width="1429" alt="Screen Shot 2022-05-31 at 6 13 46 PM" src="https://user-images.githubusercontent.com/90993242/171293160-7787ee26-9ac5-4931-99fd-116ebc796f3d.png">
 
+Implements a user dashboard
+
+<img width="1429" alt="Screen Shot 2022-05-31 at 6 17 21 PM" src="https://user-images.githubusercontent.com/90993242/171293346-9514d4e5-146a-40ab-866b-36acd997ec92.png">
+
+
 # Tech Used
 React Frontend Library
 Node.js
