@@ -2,6 +2,8 @@
 
 This is an implementation of the Members Only project using MERN Stack completed as part of the Node.js lessons provided by The Odin Project's full stack Javascript course.
 
+<img width="1429" alt="Screen Shot 2022-05-31 at 6 13 46 PM" src="https://user-images.githubusercontent.com/90993242/171293160-7787ee26-9ac5-4931-99fd-116ebc796f3d.png">
+
 # Tech Used
 React Frontend Library
 Node.js
