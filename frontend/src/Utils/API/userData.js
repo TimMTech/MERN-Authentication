@@ -2,7 +2,10 @@ import axios from "axios";
 
 export const postUser = (signUpValues) => {
   axios
-    .post("http://localhost:5000/auth/signup", signUpValues)
+    .post(
+      "https://mern-authorization-top.herokuapp.com/auth/signup",
+      signUpValues
+    )
     .then((response) => {
       console.log(response.data);
       window.location.href = "/login";
@@ -16,16 +19,19 @@ export const postUser = (signUpValues) => {
 
 export const loginUser = (loginValues) => {
   axios
-    .post("http://localhost:5000/auth/login", loginValues)
+    .post(
+      "https://mern-authorization-top.herokuapp.com/auth/login",
+      loginValues
+    )
     .then((response) => {
       localStorage.setItem("user", JSON.stringify(response.data));
-      console.log(response)
-      window.location.href = "/dashboard"
+      console.log(response);
+      window.location.href = "/dashboard";
     })
     .catch((err) => {
-      window.location.href = "/error"
-      console.log(err)
-    })
+      window.location.href = "/error";
+      console.log(err);
+    });
 };
 
 export const logoutUser = () => {

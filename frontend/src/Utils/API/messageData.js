@@ -4,11 +4,15 @@ export const postMessage = (messageValues) => {
   let token = JSON.parse(localStorage.getItem("user")).user;
 
   axios
-    .post("http://localhost:5000/auth/message", messageValues, {
-      headers: {
-        authorization: token,
-      },
-    })
+    .post(
+      "https://mern-authorization-top.herokuapp.com/auth/message",
+      messageValues,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    )
 
     .then((response) => {
       console.log(response);
@@ -18,7 +22,7 @@ export const postMessage = (messageValues) => {
 
 export const getMessage = (callback) => {
   axios
-    .get("http://localhost:5000/auth/message")
+    .get("https://mern-authorization-top.herokuapp.com/auth/message")
     .then((response) => {
       callback(response.data);
     })
@@ -29,7 +33,7 @@ export const getMessage = (callback) => {
 
 export const adminDeletePost = (post) => {
   axios
-    .post("http://localhost:5000/auth/delete", post)
+    .post("https://mern-authorization-top.herokuapp.com/auth/delete", post)
 
     .then((response) => {
       console.log(response);

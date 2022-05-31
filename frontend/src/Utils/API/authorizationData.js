@@ -3,11 +3,15 @@ import axios from "axios"
 export const becomeAdmin = (adminValues) => {
   const token = JSON.parse(localStorage.getItem("user")).user;
   axios
-    .post("http://localhost:5000/auth/become-admin", adminValues, {
-      headers: {
-        authorization: token,
-      },
-    })
+    .post(
+      "https://mern-authorization-top.herokuapp.com/auth/become-admin",
+      adminValues,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    )
     .then((response) => {
       console.log(response.data);
       window.location.href = "/admin-rules";
@@ -21,11 +25,15 @@ export const becomeAdmin = (adminValues) => {
 export const becomeMember = (memberValues) => {
   const token = JSON.parse(localStorage.getItem("user")).user;
   axios
-    .post("http://localhost:5000/auth/become-member", memberValues, {
-      headers: {
-        authorization: token,
-      },
-    })
+    .post(
+      "https://mern-authorization-top.herokuapp.com/auth/become-member",
+      memberValues,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    )
     .then((response) => {
       console.log(response.data);
       window.location.href = "/member-rules";
